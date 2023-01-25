@@ -9,3 +9,7 @@ testsheet <- read_csv("~/Downloads/test.csv")
 #Read In testdata.csv
 datacsv <- read_csv("~/Downloads/testdata.csv")
 Sys.setenv("VROOM_CONNECTION_SIZE")
+
+library(readxl)
+d2mCCRollCallVotesTotal <- read_excel("~/Downloads/d2mCCRollCallVotesTotal.xlsx")
+View(d2mCCRollCallVotesTotal)
