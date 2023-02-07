@@ -19,7 +19,7 @@ ggplot(mmdata.long, aes(x=Color, y=Number, color= Color, fill=Color)) +
                      values=c("blue", "brown","green","orange","red","yellow")) 
 
 
-#Plot 2 (Challenge)
+#Plot 2 Challenge
 ggplot(mmdata.long, aes(x= Color, y= Number)) +
   geom_boxplot() +
   scale_x_discrete(limits= c("Red", "Orange", "Yellow","Green", "Blue","Brown"))+
