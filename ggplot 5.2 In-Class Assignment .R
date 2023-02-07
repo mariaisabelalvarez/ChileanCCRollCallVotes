@@ -20,16 +20,16 @@ ggplot(mmdata.long, aes(x=Color, y=Number, color= Color, fill=Color)) +
 
 
 #Plot 2 (Challenge)
-ggplot(mmdata.long, aes(x= Color, y= Number, fill= Color)) +
+ggplot(mmdata.long, aes(x= Color, y= Number)) +
   geom_boxplot() +
-  scale_x_discrete(limits= c("Blue", "Brown", "Green","Orange", "Red","Yellow"))+
-  geom_violin(aes(fill=Color, color= Color), alpha=0.2) +
-  scale_fill_manual(breaks = c("Blue", "Brown", "Green","Orange", "Red","Yellow"),
-                    values = c("blue","brown", "green", "orange", "red", "yellow")) +
-  geom_jitter(mapping=aes(fill= Color, color= Color)) +
+  scale_x_discrete(limits= c("Red", "Orange", "Yellow","Green", "Blue","Brown"))+
+  geom_violin(aes(fill= Color, color= Color), alpha=0.2) +
+  scale_fill_manual(breaks = c("Red", "Orange", "Yellow","Green", "Blue","Brown"),
+                    values = c("Red", "Orange", "Yellow","Green", "Blue","Brown")) +
+  geom_jitter(mapping=aes(color= Color, fill= Color)) +
   theme_classic() +
-  scale_color_manual(breaks = c("blue","brown", "green", "orange", "red", "yellow"),
-                     values = c("blue","brown", "green", "orange", "red", "yellow"))
+  scale_color_manual(breaks = c("Red", "Orange", "Yellow","Green", "Blue","Brown"),
+                     values = c("Red", "Orange", "Yellow","Green", "Blue","Brown"))
   
   
 
