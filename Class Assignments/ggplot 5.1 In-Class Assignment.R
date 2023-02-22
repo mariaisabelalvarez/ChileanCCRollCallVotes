@@ -18,7 +18,6 @@ mmdata.long %>%
 #Challenge plot- work in progress 
 mmdata.long %>%
   group_by(Number, Color) %>%
-  ggplot(aes(x= Color, y= Number, fill=Color)) + geom_boxplot() + geom_jitter() + geom_point()+  theme()
-
+  ggplot(aes(x= Color, y= Number, fill=Color)) + geom_boxplot() + geom_dotplot(binaxis ="y")+  theme()
 
   

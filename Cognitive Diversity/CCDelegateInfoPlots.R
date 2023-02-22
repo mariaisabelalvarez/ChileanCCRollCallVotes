@@ -9,7 +9,50 @@ library(readxl)
 ConstitutionalConventionDelegateInfo <- read_excel("Desktop/ConstitutionalConventionDelegateInfo.xlsx")
 View(ConstitutionalConventionDelegateInfo)
 
-#PLOTS# 
+#Frequency TABLES looking into the distribution of basic demographic variables 
+
+#Frequency Table showing gender parity in the Constitutional Convention 
+tab1(ConstitutionalConventionDelegateInfo$Gender, sort.group = "decreasing", cum.percent = FALSE)
+
+#Frequency Table showing age range distribution in the Constitutional Convention 
+tab1(ConstitutionalConventionDelegateInfo$`Age Range`, sort.group = "decreasing", cum.percent = TRUE)
+
+#Frequency Table showing Regional distribution  in the Constitutional Convention 
+tab1(ConstitutionalConventionDelegateInfo$Region, sort.group = "decreasing", cum.percent = TRUE)
+
+#Frequency Table showing Macrozone distribution in the Constitutional Convention 
+tab1(ConstitutionalConventionDelegateInfo$Macrozone, sort.group = "decreasing", cum.percent = TRUE)
+
+#Frequency Table showing political party distribution in the Constitutional Convention 
+tab1(ConstitutionalConventionDelegateInfo$polparty_gen, sort.group = "decreasing", cum.percent = TRUE)
+
+#Frequency Table showing political tendency distribution in the Constitutional Convention 
+tab1(ConstitutionalConventionDelegateInfo$politicaltrend, sort.group = "decreasing", cum.percent = TRUE)
+
+
+#PLOTS for Manuscript# 
+
+#Plot showing the CC makeup by the delegate's completed educational level 
+ConstitutionalConventionDelegateInfo %>% 
+  group_by(lastname_firstname, educational_level) %>%
+  ggplot(aes(x =educational_level, fill= educational_level)) + geom_bar() +
+  theme(axis.text.x = element_text(angle = 60, hjust=1)) +
+  geom_text(aes(label = ..count..), stat = "count", vjust = 1.5, colour = "white")
+
+#Plot showing the CC makeup by the delegate's profession 
+ConstitutionalConventionDelegateInfo %>% 
+  group_by(lastname_firstname, profession) %>%
+  ggplot(aes(x = profession, fill= profession)) + geom_bar() +
+  theme(axis.text.x = element_text(angle = 60, hjust=1)) +
+  geom_text(aes(label = ..count..), stat = "count", vjust = 1.5, colour = "white")
+
+#Plot showing the Commission makeup by political party  
+ConstitutionalConventionDelegateInfo %>% 
+  group_by(lastname_firstname, comission) %>%
+  ggplot(aes(x = comission, fill= polparty_gen)) + geom_bar() +
+  theme(axis.text.x = element_text(angle = 60, hjust=1)) 
+
+#EXTRA PLOTS,,, NOT FOR FINAL MANUSCRIPT 
 
 #Plot showing the general (concept explained in the 
 #manuscript) frequency of the  political parties + independents in the Constitutional Convention 
@@ -41,7 +84,7 @@ ConstitutionalConventionDelegateInfo %>%
 #Plot showing the relationship between Gender and Political Tendency in the CC's distribution 
 ConstitutionalConventionDelegateInfo %>% 
   group_by(lastname_firstname, Gender) %>%
-  ggplot(aes(x = Gender, fill=polparty_))  + geom_bar()
+  ggplot(aes(x = Gender, fill=polparty_gen))  + geom_bar()
 
 #Plot showing regional representation by the CC delegates
 ConstitutionalConventionDelegateInfo %>% 
@@ -75,12 +118,6 @@ ConstitutionalConventionDelegateInfo %>%
   theme(axis.text.x = element_text(angle = 60, hjust=1)) +
   geom_text(aes(label = ..count..), stat = "count", vjust = 1.5, colour = "white")
 
-#Plot showing the Commission makeup by political party  
-ConstitutionalConventionDelegateInfo %>% 
-  group_by(lastname_firstname, comission) %>%
-  ggplot(aes(x = comission, fill= polparty_gen)) + geom_bar() +
-  theme(axis.text.x = element_text(angle = 60, hjust=1)) 
-
 #Plot showing the CC makeup by political tendency where Independientes = Independents, Oficialismo= Government, Oposición= Opossition, 
 #Pueblos Originarios = Indigenous peoples' quotas
 ConstitutionalConventionDelegateInfo %>% 
@@ -89,19 +126,8 @@ ConstitutionalConventionDelegateInfo %>%
   geom_text(aes(label = ..count..), stat = "count", vjust = 1.5, colour = "white")
 
 
-#Plot showing the CC makeup by the delegate's profession 
-ConstitutionalConventionDelegateInfo %>% 
-  group_by(lastname_firstname, profession) %>%
-  ggplot(aes(x = profession, fill= profession)) + geom_bar() +
-  theme(axis.text.x = element_text(angle = 60, hjust=1)) +
-  geom_text(aes(label = ..count..), stat = "count", vjust = 1.5, colour = "white")
 
-#Plot showing the CC makeup by the delegate's completed educational level 
-ConstitutionalConventionDelegateInfo %>% 
-  group_by(lastname_firstname, educational_level) %>%
-  ggplot(aes(x =educational_level, fill= educational_level)) + geom_bar() +
-  theme(axis.text.x = element_text(angle = 60, hjust=1)) +
-  geom_text(aes(label = ..count..), stat = "count", vjust = 1.5, colour = "white")
+
 
 
 
