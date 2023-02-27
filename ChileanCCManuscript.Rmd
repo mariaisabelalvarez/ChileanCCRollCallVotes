@@ -11,8 +11,19 @@ library("papaja")
 r_refs("r-references.bib")
 library(readxl)
 library(knitr)
+opts_template$set(figure3 = list(fig.height = 6, fig.width = 12), 
+                  figure4 = list(fig.height = 8, fig.width = 15),
+                  figure5 = list(fig.height = 6, fig.width = 12),
+                  figure6 = list(fig.height = 6, fig.width = 12),
+                  figure7 = list(fig.height = 6, fig.width = 12),
+                  figure8 = list(fig.height = 6, fig.width = 12),
+                  figure9 = list(fig.height = 6, fig.width = 12),
+                  figure10 = list(fig.height = 6, fig.width = 12),
+                  figure11 = list(fig.height = 8, fig.width = 12),
+                  figure12 = list(fig.height = 7, fig.width = 10))
 #library(kableExtra)
 library(tidyverse)
+knitr::opts_chunk$set(warning = FALSE, message = FALSE) 
 #library(epiDisplay)
 devtools::install_github("lbusett/insert_table")
 ConstitutionalConventionDelegateInfo <- read_excel("ConstitutionalConventionDelegateInfo.xlsx")
@@ -49,62 +60,60 @@ And this section will analyze if that particular argument is supported or not. W
 Cognitive diversity “refers to a diversity of ways of seeing the world, interpreting problems in it and working out solutions to these problems” and “denotes more specifically a diversity of perspectives (ways of representing situations and problems), diversity of interpretations (ways of categorizing or partitioning perspectives), diversity of heuristics (ways of generating solutions to problems) and diversity of predictive models (ways of inferring cause and effect)”. But cognitive diversity is “conceptually distinct from both some of its causes (e.g., gender, ethnicity, or, more fundamentally, genes) and some of its symptoms (e.g. differences in viewpoints or opinions”– meaning cognitive diversity goes beyond broad representation of different groups but gets to a diversity in cognitive processes. In other words,  “The diversity that really matters is not primarily a diversity of opinions, values, perspectives (as end-results rather than processes), or even a diversity of social and conomic backgrounds. What matters is a more fundamental cognitive diversity defined as the internal, psychological property that determines how each individual sees the world, interprets its problems and maks predictions in it.” The importance of cognitive diversity and the argument that Landemore, alongside Lu Hong and Scott Page make, is that the cognitive diversity in a group is more valuable than the average individual ability for a group’s collective competence in decision-making– particularly, democratic decision-making.  
 I will argue that the data presented below does demonstrate, to a certain extent, that there was an achievement of cognitive diversity in the Constitutional Convention. Cognitive diversity is not a measurable or quantifiable concept. And while the theorists argue against equating cognitive diversity with its symptoms or causes, I will at at least minimally be able to argue that there were the optimal conditions for there to be cognitive diversity within the Constitutional Convention. An maximally I will argue that the blend of these very different Chilean experiences did result in cognitive diversity within the Convention. 
 
-Turning to the data, Tables 1, 2 and 3, these summarize the frequency of a number of demographic variables which demonstrate diversity within the Constitutional Convention at a very basic level. These tables show the frequency of the delegate’s gender, age range, and macrozone. This basic demographic information shows the distribution of the Constitutional Delegate’s gender, age group and general geographical origin. The data is relevant because it shows that the Constitutional Convention, at a basic level had gender parity, representation of different age groups and generations, and complete geographical representation of Chile. 
+Turning to the data, Tables 1 and 2  summarize the frequency of a number of demographic variables which demonstrate diversity within the Constitutional Convention at a very basic level. These tables show the frequency of the delegate’s gender, age range, and macrozone. This basic demographic information shows the distribution of the Constitutional Delegate’s gender, age group and general geographical origin. The data is relevant because it shows that the Constitutional Convention, at a basic level had gender parity, representation of different age groups and generations, and complete geographical representation of Chile. 
 
 ```{r figure-1, echo= FALSE}
 #Read in the data + viewing the data 
 library(readxl)
 ConstitutionalConventionDelegateInfo <- read_excel("ConstitutionalConventionDelegateInfo.xlsx")
 
-#Frequency TABLES looking into the distribution of basic demographic variables 
-
-#TABLE 1#
-#Frequency Table showing gender parity in the Constitutional Convention 
-# tab1(ConstitutionalConventionDelegateInfo$Gender, sort.group = "decreasing", cum.percent = TRUE)
-
+#Table and Kable showing gender and age range distribution 
+genderage <-  table(ConstitutionalConventionDelegateInfo$Gender, 
+                    ConstitutionalConventionDelegateInfo$`Age Range`)
+knitr::kable(head(genderage[, 1:5]), "pipe")
 ```
 
-```{r figure-2, echo=FALSE}
-library(readxl)
-ConstitutionalConventionDelegateInfo <- read_excel("ConstitutionalConventionDelegateInfo.xlsx")
 
-#Frequency Table showing age range distribution in the Constitutional Convention 
-#tab1(ConstitutionalConventionDelegateInfo$`Age Range`, sort.group = "decreasing", cum.percent = TRUE)
+```{r figure-2, echo= FALSE}
+#Table and Kable showing gender and age range distribution 
+gendermacrozone <-  table(ConstitutionalConventionDelegateInfo$Gender, 
+                    ConstitutionalConventionDelegateInfo$Macrozone)
+
+knitr::kable(head(gendermacrozone[, 1:6]), "pipe")
+
 ```
-
-```{r figure-3, echo=FALSE}
-library(readxl)
-ConstitutionalConventionDelegateInfo <- read_excel("ConstitutionalConventionDelegateInfo.xlsx")
-
-#Frequency Table showing Macrozone distribution in the Constitutional Convention 
-#tab1(ConstitutionalConventionDelegateInfo$Macrozone, sort.group = "decreasing", cum.percent = TRUE)
-```
-
 
 But turning to figures, these show a more in-depth level of cognitive diversity through the different academic and professional backgrounds of the Constitutional Convention delegates. There was a variety of educational levels represented in the Convention, as well as professions. This shows at a basic level that the Convention was not just a group of technocrats or just a group of lawyers and politicians drafting a new Constitution. It is observable that several backgrounds with different skillsets and problem-diagnosis-and-solving abilities were represented. And this was incredibly purposeful, as I will evaluate. Figure 4 displays the variety of educational levels represented in the Convention; Figure 5 displays the variety of professions represented in the Convention. 
 
-```{r figure-4, echo=FALSE}
+```{r figure-3, opts.label = "figure3", echo=FALSE}
 library(readxl)
 ConstitutionalConventionDelegateInfo <- read_excel("ConstitutionalConventionDelegateInfo.xlsx")
 
 #Plot showing the CC makeup by the delegate's completed educational level 
 ConstitutionalConventionDelegateInfo %>% 
   group_by(lastname_firstname, educational_level) %>%
-  ggplot(aes(x =educational_level, fill= educational_level)) + geom_bar() +
+  ggplot(aes(x =educational_level, fill= educational_level)) +  
+  ggtitle("Constitutional Convention Delegates and their Completed/Current Educational Level") +
+  theme(plot.title = element_text(face = "bold")) + 
+  geom_bar() +
+  labs(y = "Frequency", x = "Completed/Current Educational Level") +
   theme(axis.text.x = element_text(angle = 60, hjust=1)) +
-  geom_text(aes(label = ..count..), stat = "count", vjust = 1.5, colour = "white")
+  geom_text(aes(label = after_stat(count)), stat = "count", vjust = 1.5, colour = "white")
 
 ```
 
-```{r figure-5, echo=FALSE}
+```{r figure-4, opts.label = "figure4", echo=FALSE}
 ConstitutionalConventionDelegateInfo <- read_excel("ConstitutionalConventionDelegateInfo.xlsx")
 
 #Plot showing the CC makeup by the delegate's profession 
 ConstitutionalConventionDelegateInfo %>% 
   group_by(lastname_firstname, profession) %>%
   ggplot(aes(x = profession, fill= profession)) + geom_bar() +
+  ggtitle("Constitutional Convention Delegates and their Profession") +
+  theme(plot.title = element_text(face = "bold")) + 
+  labs(y = "Frequency", x = "Profession") +
   theme(axis.text.x = element_text(angle = 60, hjust=1)) +
-  geom_text(aes(label = ..count..), stat = "count", vjust = 1.5, colour = "white")
+  geom_text(aes(label = after_stat(count)), stat = "count", vjust = 1.5, colour = "white")
 ```
 
 
@@ -116,7 +125,7 @@ This report will also consider the party dynamics considering one of the aforeme
 
 Figure 6 shows the distribution of the general political parties represented and Figure 6 shows the distribution of these in the particular commissions within the Convention. I say general because most delegates ran under very small Independent lists and Indigenous peoples groups ran under their particular peoples groups (pueblos originarios). In total and in detail, technically there were 51 different lists represented among 154 delegates. But when conflating all of the Independents in one category, and the Indigenous peoples quotas into on category, we’re left with 12 “political parties”– 10 of these are established Chilean political parties, one contains all delegates that ran as Independents and one contains all the different Indigenous delegates representing their peoples. As Figure 7 shows, Independents overwhelmingly hold the concentrated majority. A total of 87 of the 154 delegates ran through Independent lists, and the second largest concentration are the 17 Indigenous peoples’ reserved seats. After that, three established political parties were tied at 10 delegates.  
 
-```{r figure-6, echo=FALSE}
+```{r figure-5, opts.label = "figure5", echo=FALSE}
 ConstitutionalConventionDelegateInfo <- read_excel("ConstitutionalConventionDelegateInfo.xlsx")
 
 #Plot showing the general (concept explained in the 
@@ -124,18 +133,24 @@ ConstitutionalConventionDelegateInfo <- read_excel("ConstitutionalConventionDele
 ConstitutionalConventionDelegateInfo %>%
   group_by(lastname_firstname, polparty_gen) %>%
   ggplot(aes(x= polparty_gen, fill = polparty_gen)) + geom_bar() +
+  ggtitle("Distribution of Political Parties, Independents and Indigenous peoples' quotas in the Constitutional Convention") +
+  labs(y = "Frequency", x = "Political Party") +
+  theme(plot.title = element_text(face = "bold")) + 
   theme(axis.text.x = element_text(angle = 65, vjust = 0.9, hjust=1))+
   geom_text(aes(label = ..count..), stat = "count", vjust = 1.5, colour = "white")
 
 ```
 
-```{r figure-7, echo=FALSE}
+```{r figure-6, opts.label = "figure6", echo=FALSE}
 ConstitutionalConventionDelegateInfo <- read_excel("ConstitutionalConventionDelegateInfo.xlsx")
 
 #Plot showing the Commission makeup by political party  
 ConstitutionalConventionDelegateInfo %>% 
   group_by(lastname_firstname, comission) %>%
   ggplot(aes(x = comission, fill= polparty_gen)) + geom_bar() +
+   ggtitle("Constitutional Convention Commission Makeup by Political Party") +
+  labs(y = "Frequency", x = "CC Commission") +
+  theme(plot.title = element_text(face = "bold")) + 
   theme(axis.text.x = element_text(angle = 60, hjust=1)) 
 
 ```
@@ -143,7 +158,7 @@ ConstitutionalConventionDelegateInfo %>%
 
 Figure 8 shows the distribution of the different political tendencies represented. Again, I have grouped Independents into a category and Indigenous peoples into another category. This is to primarily focus on the distribution of ideologies from the traditional political paries in Chile. Oficialismo refers to the governing coalition– considered here as current-President Gabriel Boric’s coalition which encompasses center to left wing parties. And Oposición refers to the opposing coalition– considered here as the current opposition of center to right wing parties. 
 
-```{r figure-8, echo=FALSE}
+```{r figure-7,opts.label = "figure7", echo=FALSE}
 ConstitutionalConventionDelegateInfo <- read_excel("ConstitutionalConventionDelegateInfo.xlsx")
 
 #Plot showing the CC makeup by political tendency where Independientes = Independents, Oficialismo= Government, Oposición= Opossition, 
@@ -151,6 +166,9 @@ ConstitutionalConventionDelegateInfo <- read_excel("ConstitutionalConventionDele
 ConstitutionalConventionDelegateInfo %>% 
   group_by(lastname_firstname, tendency) %>%
   ggplot(aes(x = tendency, fill= tendency))  + geom_bar() + 
+  ggtitle("Distribution of Political Tendencies in the Constitutional Convention (Independientes = Independents, Oficialismo= Government, Oposición= Opossition, Pueblos Originarios = Indigenous peoples' quotas)") +
+   labs(y = "Frequency", x = "Political Tendency") +
+  theme(plot.title = element_text(face = "bold")) + 
   geom_text(aes(label = ..count..), stat = "count", vjust = 1.5, colour = "white")
 ```
 
@@ -158,7 +176,7 @@ ConstitutionalConventionDelegateInfo %>%
 ## Data Analysis with Regulatory Phase and Substantive Phase Roll Call Data  
 Having laid out the general political party and political tendency distribution, now I will analyze the voting behavior of these different political parties and political tendencies. Figure 9 and 10 show the frequency distribution in the regulatory and substantive phase of votes casted in favor by members of different political parties. 
 
-```{r, figure-9, echo=FALSE}
+```{r figure-8, opts.label = "figure8", echo=FALSE}
 CCRollCallVotesRegDelegateVotes <- read_excel("CCRollCallVotesRegDelegateVotes.xlsx")
 
 #FIGURE 9 
@@ -166,12 +184,14 @@ CCRollCallVotesRegDelegateVotes <- read_excel("CCRollCallVotesRegDelegateVotes.x
 CCRollCallVotesRegDelegateVotes %>%
   group_by(polparty_gen, percentage_votesinfavor) %>%
   ggplot(aes(x=polparty_gen, y=percentage_votesinfavor, fill= polparty_gen, color= polparty_gen)) + geom_count() +
+  ggtitle("Frequency Distribution (by Political Party) of Votes In Favor Casted in the Regulatory Phase") +
+  theme(plot.title = element_text(face = "bold")) + 
   labs(y = "Percentage Votes Casted In Favor", x = "Political Party") +
-  scale_y_continuous(limits = c(0,100))+
+  scale_y_continuous(limits = c(30,80))+
   theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1)) 
 ```
 
-```{r figure-10, echo=FALSE}
+```{r figure-9,opts.label = "figure9", echo=FALSE}
 CCRollCallVotesSubsDelegateVotes <- read_excel("CCRollCallVotesSubsDelegateVotes.xlsx")
 #FIGURE 10 
 #Plot showing the percentage of votes casted in the Substantive Phase, polparty by frequency 
@@ -179,35 +199,53 @@ CCRollCallVotesSubsDelegateVotes %>%
   group_by(polparty_gen, percentage_infavor) %>%
   ggplot(aes(x=polparty_gen, y=percentage_infavor, fill= polparty_gen, color= polparty_gen)) + geom_count() +
   labs(y = "Percentage of Votes Casted In Favor", x = "Political Party") +
-  scale_y_continuous(limits = c(0,100))+
+  ggtitle("Frequency Distribution (by Political Party) of Votes In Favor Casted in the Substantive Phase") +
+  theme(plot.title = element_text(face = "bold")) + 
+  scale_y_continuous(limits = c(20,80))+
   theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))
 ```
 
 Figure 11 and 12 show the frequency distribution in the regulatory and substantive phase of votes casted in favor by members of different political tendencies. 
-```{r figure 11, echo=FALSE}
+
+```{r figure-10, opts.label = "figure10", echo=FALSE}
 CCRollCallVotesRegDelegateVotes <- read_excel("CCRollCallVotesRegDelegateVotes.xlsx")
 
 #FIGURE 11 
 #Plot showing the percentage of votes casted, political trend by frequency 
 CCRollCallVotesRegDelegateVotes %>%
   group_by(tendency, percentage_votesinfavor) %>%
-  ggplot(aes(x=tendency, y=percentage_votesinfavor, fill= tendency, color= polparty_gen)) + geom_count() +
+  ggplot(aes(x=tendency, y=percentage_votesinfavor, fill= tendency, color= tendency)) + geom_count() +
+  ggtitle("Frequency Distribution (by Political Trend) of Votes In Favor Casted in the Regulatory Phase") +
+  theme(plot.title = element_text(face = "bold")) + 
   labs(y = "Percentage Votes Casted In Favor", x = "Political Party") +
-  scale_y_continuous(limits = c(0,100))+
-  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1)) 
+  scale_y_continuous(limits = c(40,80))+
+  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))
+```
+
+
+```{r figure-11, opts.label = "figure11", echo=FALSE}
+#STANDARD DEVIATION BY TENDENCY 
+sdpoltend <- CCRollCallVotesSubsDelegateVotes%>%
+  group_by(tendency) %>%
+  summarise_at(vars(percentage_infavor), list(name=sd))
+
+#Table SD by tendency in knitr format 
+knitr::kable(head(sdpoltend[, 1:2]), "pipe", col.names = c("Political Tendency","Standard Deviation"), align = "c", digits = 2)
 
 ```
 
-```{r figure 12, echo=FALSE}
+```{r figure-12, opts.label = "figure12", echo=FALSE}
 CCRollCallVotesSubsDelegateVotes <- read_excel("CCRollCallVotesSubsDelegateVotes.xlsx")
 
-#FIGURE 12
+#FIGURE 13
 #Plot showing the percentage of votes casted in the Substantive Phase, polparty by frequency 
 CCRollCallVotesSubsDelegateVotes %>%
   group_by(tendency, percentage_infavor) %>%
-  ggplot(aes(x=tendency, y=percentage_infavor, fill= tendency, color= polparty_gen)) + geom_count() +
+  ggplot(aes(x=tendency, y=percentage_infavor, fill= tendency, color= tendency)) + geom_count() +
+   ggtitle("Frequency Distribution (by Political Tendency) of Votes In Favor Casted in the Substantive Phase") +
+  theme(plot.title = element_text(face = "bold")) + 
   labs(y = "Percentage of Votes Casted In Favor", x = "Political Tendency") +
-  scale_y_continuous(limits = c(0,100))+
+  scale_y_continuous(limits = c(20,80))+
   theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1)) 
 
 ```
@@ -215,4 +253,3 @@ CCRollCallVotesSubsDelegateVotes %>%
 
 # Conclusion
 Thus, this report has evaluated the impact of some externally imposed procedures that aimed to broaden the Constitutional Convention’s inclusivity on the Convention’s internal dynamics focusing on cognitive diversity, party unity and political preferences. Inclusivity and representation are rightfully celebrated in democratic processes. Theorists like Landemore, Ho and Page show how inclusivity and representation can be conducive to cognitive diversity in a democratic process. They argue that diversity in a decision-making group is more valuable than the average individual ability for a group’s collective competence particularly in democratic processes. But the Chilean Constitutional Process seems to be an outlier. While there were high degrees of representation due to procedural mechanisms that aimed to purposefully design an inclusive constitution-making organ, and while there seemed to be cognitive diversity, these features counterintuitively hindered democratic reason. They counterintuitively hindered democratic reason because they were not conducive to consensus even after thorough rounds of deliberation and majoritarian votes. 
-
