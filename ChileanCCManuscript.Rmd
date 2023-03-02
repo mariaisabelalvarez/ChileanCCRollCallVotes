@@ -13,15 +13,14 @@ library("papaja")
 r_refs("r-references.bib")
 library(readxl)
 library(knitr)
-opts_template$set(figure3 = list(fig.height = 6, fig.width = 12), 
-                  figure4 = list(fig.height = 8, fig.width = 15),
+opts_template$set(figure1 = list(fig.height = 6, fig.width = 12), 
+                  figure2 = list(fig.height = 8, fig.width = 15),
+                  figure3 = list(fig.height = 6, fig.width = 12),
+                  figure4 = list(fig.height = 6, fig.width = 12),
                   figure5 = list(fig.height = 6, fig.width = 12),
                   figure6 = list(fig.height = 6, fig.width = 12),
                   figure7 = list(fig.height = 6, fig.width = 12),
-                  figure8 = list(fig.height = 6, fig.width = 12),
-                  figure9 = list(fig.height = 6, fig.width = 12),
-                  figure10 = list(fig.height = 6, fig.width = 12),
-                  figure11 = list(fig.height = 7, fig.width = 10))
+                  figure8 = list(fig.height = 7, fig.width = 10))
 library(tidyverse)
 knitr::opts_chunk$set(warning = FALSE, message = FALSE) 
 ConstitutionalConventionDelegateInfo <- read_excel("ConstitutionalConventionDelegateInfo.xlsx")
@@ -31,7 +30,7 @@ CCRollCallVotesSubsDelegateVotes <- read_excel("CCRollCallVotesSubsDelegateVotes
 
 
 # Introduction
-The topic that I will be addressing in my BA/MA thesis is the failure of the 2019-2022 Chilean Constitutional Process. The project to rewrite a constitution to replace the Constitution ratified in 1980 during General Augusto Pinochet’s military dictatorship (and amended substantively in 2005 by former-President Ricardo Lagos) had massive initial popular support after the 2019 Chilean Estallido Social (Social Outbreak) protests. To be precise, the referendum that formally began the process of Chile’s constitution-making had 78.28% of approval (with a 50.95% of voter participation) and a Constitutional Convention was chosen as the preferred organ to redraft the constitution with 79% approval [@servel2020]. Two years later, a referendum was held to reject or ratify the Constitutional Proposal draft; and the results were loud and clear: the Proposal was rejected by 61.89% of the votes, and this election broke a record of voter participation in Chile with an 85.86% of participation [@servel2022]. In other words, Chileans expressed “we want a new Constitution, but certainly not this one”.
+The topic that I will be addressing in my BA/MA thesis is the failure of the 2019-2022 Chilean Constitutional Process. The project to rewrite a constitution to replace the Constitution ratified in 1980 during General Augusto Pinochet’s military dictatorship (and amended substantively in 2005 by former-President Ricardo Lagos) had massive initial popular support after the 2019 Chilean Estallido Social (Social Outbreak) protests. To be precise, the referendum that formally began the process of Chile’s constitution-making had 78.28% of approval (with a 50.95% of voter participation) and a Constitutional Convention was chosen as the preferred organ to redraft the constitution with 79% approval [@servel2020] ^[The plebiscite had two questions, whether Chileans approved or rejected the redrafting of a new Constitution and if so, which organ would be charged with the drafting of the text, either a Mixed Constitutional Convention (made up 1/2 by parliamentarians and 1/ of elected members) or a Cosntitutional Convention (made up 100% of elected members)] . Two years later, a referendum was held to reject or ratify the Constitutional Proposal draft; and the results were loud and clear: the Proposal was rejected by 61.89% of the votes, and this election broke a record of voter participation in Chile with an 85.86% of participation [@servel2022]. In other words, Chileans expressed “we want a new Constitution, but certainly not this one”.
 
 Putting these results in a historical and comparative perspective, out of the 179 plebiscites on new constitutional processes that have taken place around the world between 1789 and 2016, only 6% of these have rejected a newly drafted constitution [@elkins2019constitutional]. The failure of Chile’s constitutional process was as historic as was the opportunity to write a constitution under the conditions that Chilean Constitutional Convention drafted it: with gender parity, regional representation, and a proportional Indigenous peoples’ quota. 
 
@@ -72,7 +71,7 @@ I will argue that the data presented below does demonstrate, to a certain extent
 
 Turning to the data, Tables 1 and 2 summarize the frequency of a number of demographic variables which demonstrate diversity within the Constitutional Convention at a very basic level. These tables show the frequency of the delegate’s gender, age range, and macrozone. This basic demographic information shows the distribution of the Constitutional Delegate’s gender, age group and general geographical origin. The data is relevant because it shows that the Constitutional Convention, at a basic level had gender parity, representation of different age groups and generations, and complete geographical representation of Chile. Table 1 shows the relationship between age range and gender within the convention. Gender was equally represented in the Convention (77 members were male-identifying and 77 members were female-identifying) and all in all, there is vast generational representation. But the age group with the broadest representation was 30 to 39 years old, and the age group with the smallest representation was 20 to 29. Furthermore, Table 2 shows the macrozone representation. Chile has 16 regions that extend over the longest country in the world of length, but its government and its institutions are highly centralized. Which is why macrozone representation is important to be included in its diversity. While the most represented area is its Metropolitan Region (the capital, Santiago), each macrozone (except the Austral) has around 20 representatives. 
 
-```{r figure-1, echo= FALSE}
+```{r table-1, echo= FALSE}
 #Read in the data + viewing the data 
 library(readxl)
 ConstitutionalConventionDelegateInfo <- read_excel("ConstitutionalConventionDelegateInfo.xlsx")
@@ -80,33 +79,32 @@ ConstitutionalConventionDelegateInfo <- read_excel("ConstitutionalConventionDele
 #Table and Kable showing gender and age range distribution 
 genderage <-  table(ConstitutionalConventionDelegateInfo$Gender, 
                     ConstitutionalConventionDelegateInfo$`Age Range`)
-knitr::kable(head(genderage[, 1:5]), "pipe")
+knitr::kable(head(genderage[, 1:5]), "pipe", caption = "Table showing the frequency of age ranges by gender in the Constitutionional Convention with gender parity (and a total of 77 female-identifying delegates and 77 male-identifying delegates")
 
 ```
 
 
-```{r figure-2, echo= FALSE}
+```{r table-2, echo= FALSE}
 #Table and Kable showing gender and age range distribution 
 gendermacrozone <-  table(ConstitutionalConventionDelegateInfo$Gender, 
                     ConstitutionalConventionDelegateInfo$Macrozone)
 
-knitr::kable(head(gendermacrozone[, 1:6]), "pipe")
+knitr::kable(head(gendermacrozone[, 1:6]), "pipe", caption = "Table showing the macrozone distribution in the Convention by gender. Austral= Austral Zone, Centro= Cental Zone (excluding the Metropolitan zone), Centro Sur= Central Southern Zone, Metropolitana= Metropolitan Zone (Santiago, the Chilean Capital, Norte Grande= Northern Zone, Sur= Southern Zone")
 
 ```
 
 Turning to figures, these show a more in-depth level of cognitive diversity through the different academic and professional backgrounds of the Constitutional Convention delegates. There was a variety of educational levels represented in the Convention, as well as professions. This is data analysis is important because it essentially supports the argument that the Convention was not just a group of technocrats or just a group of lawyers and politicians drafting a new Constitution. It is observable that several backgrounds that are accompanied by different skill-sets alongside different problem-diagnosis-and-solving abilities were represented. 
 
-Figure 3 displays the variety of educational levels represented in the Convention. Diversity in educational levels range from a completed elementary school education to an array of graduate degrees, and everything in between. The representation of a wide array of educational experiences is valuable to broaden inclusivity, especially in a foundational democratic process like constitution-making. Different experiences yield different perspectives, which consequently yield different approaches to problem identification and solving, i.e. cognitive diversity. Not to mention, different educational backgrounds will provide valuable input in institution-making. 
+Figure 1 displays the variety of educational levels represented in the Convention. Diversity in educational levels range from a completed elementary school education to an array of graduate degrees, and everything in between. The representation of a wide array of educational experiences is valuable to broaden inclusivity, especially in a foundational democratic process like constitution-making. Different experiences yield different perspectives, which consequently yield different approaches to problem identification and solving, i.e. cognitive diversity. Not to mention, different educational backgrounds will provide valuable input in institution-making. 
 
-```{r figure-3, opts.label = "figure3", echo=FALSE}
+```{r figure-1, opts.label = "figure1", echo=FALSE, fig.cap= "Constitutional Convention Delegates and their Completed/Current Educational Level"}
 library(readxl)
 ConstitutionalConventionDelegateInfo <- read_excel("ConstitutionalConventionDelegateInfo.xlsx")
 
 #Plot showing the CC makeup by the delegate's completed educational level 
 ConstitutionalConventionDelegateInfo %>% 
   group_by(lastname_firstname, educational_level) %>%
-  ggplot(aes(x =educational_level, fill= educational_level)) +  
-  ggtitle("Constitutional Convention Delegates and their Completed/Current Educational Level") +
+  ggplot(aes(x =educational_level, fill= educational_level)) +
   theme(plot.title = element_text(face = "bold")) + 
   geom_bar() +
   labs(y = "Frequency", x = "Completed/Current Educational Level") +
@@ -115,18 +113,17 @@ ConstitutionalConventionDelegateInfo %>%
 
 ```
 
-Figure 4 displays the variety of professions represented in the Convention. And this professional diversity yields very similar inputs as educational diversity. And I argue that this information truly is the key to unlocking the argument that there was cognitive diversity in the Convention given the vast array of cognitive processes represented in the constitution-making body. 
+Figure 2 displays the variety of professions represented in the Convention. And this professional diversity yields very similar inputs as educational diversity. And I argue that this information truly is the key to unlocking the argument that there was cognitive diversity in the Convention given the vast array of cognitive processes represented in the constitution-making body. 
 
 Constitution-making is an incredibly complex and technical process. Technocratic arguments already favor technical expertise over representation and inclusivity. But these arguments are doubled on specifically when applied to constitution-making given the intricacies and legal expertise "required" to partake in such processes. Nonetheless, technical expertise is not always attached or related with educational experience, which is why either way it is helpful to look at professions. But Landemore argues that cognitive diversity can and will make up for lack of technical expertise. Cognitive diversity on its own is already valuable and conducive to democratic reason, but cognitive diversity can also make up for technical inexpertise or knowledge on a subject matter. 
 
-```{r figure-4, opts.label = "figure4", echo=FALSE}
+```{r figure-2, opts.label = "figure2", echo=FALSE, fig.cap="Constitutional Convention Delegates and their Profession"}
 ConstitutionalConventionDelegateInfo <- read_excel("ConstitutionalConventionDelegateInfo.xlsx")
 
 #Plot showing the CC makeup by the delegate's profession 
 ConstitutionalConventionDelegateInfo %>% 
   group_by(lastname_firstname, profession) %>%
   ggplot(aes(x = profession, fill= profession)) + geom_bar() +
-  ggtitle("Constitutional Convention Delegates and their Profession") +
   theme(plot.title = element_text(face = "bold")) + 
   labs(y = "Frequency", x = "Profession") +
   theme(axis.text.x = element_text(angle = 60, hjust=1)) +
@@ -139,9 +136,9 @@ Without the procedures that the Chilean Congress designed or imposed onto the Co
 # Party Dynamics 
 This section also considers the impact of the externally imposed procedure of the participation of Independents on another variable, party dynamics. The Chilean Congress passed specific laws that first allowed the participation of Independents in the election of the Constitutional Convention [@ley21216] delegates and then passed another law that would facilitate their inscription process[@ley21296]. In other words, Independents were incentivized to participate. In brief, this was a reflection of the Congress appeasing to the anti-party mood in Chile after the Social Outbreak protests and the will of the people to draft a new Constitution by and for “the people”– which is why a Constitutional Convention was elected as the constitution-making organ instead of a Mixed Constitutional Convention in which half of the body would be made up of elected citizens and half of current parliamentarians. Chileans, by electing with an overwhelming electoral majority a Constitution Convention whose all members had to be elected citizens, demanded to be rid of traditional party-politics for this process [@servel2020]. 
 
-Figure 5 shows the distribution of the general political parties represented. I specify that this is the general political party distribution because  most delegates ran under very small Independent lists and Indigenous peoples groups ran under their particular peoples groups (Pueblos Originarios). In total and in detail, there technically were 51 different lists/parties represented among 154 delegates. But when conflating all of the Independents in one category, and the Indigenous peoples quotas into on category, we’re left with 12 “political parties”– 10 of these are established Chilean political parties, one contains all delegates that ran as Independents and one contains all the different Indigenous delegates representing their peoples. As Figure 5 shows, Independents overwhelmingly hold the concentrated majority. A total of 87 of the 154 delegates ran through Independent lists, and the second largest concentration are the 17 Indigenous peoples’ reserved seats. After that, three established political parties were tied at 10 delegates.  
+Figure 3 shows the distribution of the general political parties represented. I specify that this is the general political party distribution because  most delegates ran under very small Independent lists and Indigenous peoples groups ran under their particular peoples groups (Pueblos Originarios). In total and in detail, there technically were 51 different lists/parties represented among 154 delegates. But when conflating all of the Independents in one category, and the Indigenous peoples quotas into on category, we’re left with 12 “political parties”– 10 of these are established Chilean political parties, one contains all delegates that ran as Independents and one contains all the different Indigenous delegates representing their peoples. As Figure 5 shows, Independents overwhelmingly hold the concentrated majority. A total of 87 of the 154 delegates ran through Independent lists, and the second largest concentration are the 17 Indigenous peoples’ reserved seats. After that, three established political parties were tied at 10 delegates.  
 
-```{r figure-5, opts.label = "figure5", echo=FALSE}
+```{r figure-3, opts.label = "figure3", echo=FALSE, fig.cap="Distribution of Political Parties, Independents and Indigenous peoples' quotas in the Constitutional Convention"}
 ConstitutionalConventionDelegateInfo <- read_excel("ConstitutionalConventionDelegateInfo.xlsx")
 
 #Plot showing the general (concept explained in the 
@@ -149,7 +146,6 @@ ConstitutionalConventionDelegateInfo <- read_excel("ConstitutionalConventionDele
 ConstitutionalConventionDelegateInfo %>%
   group_by(lastname_firstname, polparty_gen) %>%
   ggplot(aes(x= polparty_gen, fill = polparty_gen)) + geom_bar() +
-  ggtitle("Distribution of Political Parties, Independents and Indigenous peoples' quotas in the Constitutional Convention") +
   labs(y = "Frequency", x = "Political Party") +
   theme(plot.title = element_text(face = "bold")) + 
   theme(axis.text.x = element_text(angle = 65, vjust = 0.9, hjust=1))+
@@ -158,9 +154,9 @@ ConstitutionalConventionDelegateInfo %>%
 ```
 
 
-Figure 6 shows the distribution of the different political tendencies represented. Again, I have grouped Independents into a category and Indigenous peoples into another category. This is to primarily focus on the distribution of ideologies from the traditional political paries in Chile. Oficialismo refers to the governing coalition– considered here as current-President Gabriel Boric’s coalition which encompasses center to left wing parties. And Oposicion refers to the opposing coalition– considered here as the current opposition of center to right wing parties. One of the central procedures that my thesis project focuses on is the 2/3 supermajority voting quorum needed to pass any norm in the substantive phase of the Process (substantive meaning that what passed, made it onto the Constitutional Draft). And it is because given that the opposition (center to right wing parties) were not able to achieve a third of the seats in the Constitutional Convention, the Chilean right was left with no bargaining power in agreements as they didn't have an informal "veto" power or the numbers to block motions [@interferencia1]. As a result, I argue, an entire sector of the Chilean political spectrum was ignored in negotiations; they did not have to be taken seriously because they did not have the numbers to be meaningfully included in negotiations. This, was counterproductive because it produced an environment of adversarial instead of consensus politics; delegates from different ideological currents saw each other as barriers and obstacles to their own goals instead of fellow collaborators, all because "what really mattered" was achieving a 2/3 supermajority [@interferencia1]. 
+Figure 4 shows the distribution of the different political tendencies represented. Again, I have grouped Independents into a category and Indigenous peoples into another category. This is to primarily focus on the distribution of ideologies from the traditional political paries in Chile. Oficialismo refers to the governing coalition– considered here as current-President Gabriel Boric’s coalition which encompasses center to left wing parties. And Oposicion refers to the opposing coalition– considered here as the current opposition of center to right wing parties. One of the central procedures that my thesis project focuses on is the 2/3 supermajority voting quorum needed to pass any norm in the substantive phase of the Process (substantive meaning that what passed, made it onto the Constitutional Draft). And it is because given that the opposition (center to right wing parties) were not able to achieve a third of the seats in the Constitutional Convention, the Chilean right was left with no bargaining power in agreements as they didn't have an informal "veto" power or the numbers to block motions [@interferencia1]. As a result, I argue, an entire sector of the Chilean political spectrum was ignored in negotiations; they did not have to be taken seriously because they did not have the numbers to be meaningfully included in negotiations. This, was counterproductive because it produced an environment of adversarial instead of consensus politics; delegates from different ideological currents saw each other as barriers and obstacles to their own goals instead of fellow collaborators, all because "what really mattered" was achieving a 2/3 supermajority [@interferencia1]. 
 
-```{r figure-6,opts.label = "figure6", echo=FALSE}
+```{r figure-4,opts.label = "figure4", echo=FALSE, fig.cap="Distribution of Political Tendencies in the Constitutional Convention (Independientes = Independents, Oficialismo= Government, Oposicion= Opossition, Pueblos Originarios = Indigenous peoples' quotas)"}
 ConstitutionalConventionDelegateInfo <- read_excel("ConstitutionalConventionDelegateInfo.xlsx")
 
 #Plot showing the CC makeup by political tendency where Independientes = Independents, Oficialismo= Government, Oposicion= Opossition, 
@@ -168,7 +164,6 @@ ConstitutionalConventionDelegateInfo <- read_excel("ConstitutionalConventionDele
 ConstitutionalConventionDelegateInfo %>% 
   group_by(lastname_firstname, tendency) %>%
   ggplot(aes(x = tendency, fill= tendency))  + geom_bar() + 
-  ggtitle("Distribution of Political Tendencies in the Constitutional Convention (Independientes = Independents, Oficialismo= Government, Oposicion= Opossition, Pueblos Originarios = Indigenous peoples' quotas)") +
    labs(y = "Frequency", x = "Political Tendency") +
   theme(plot.title = element_text(face = "bold")) + 
   geom_text(aes(label = ..count..), stat = "count", vjust = 1.5, colour = "white")
@@ -178,26 +173,25 @@ ConstitutionalConventionDelegateInfo %>%
 ## Data Analysis with Regulatory Phase and Substantive Phase Roll Call Data  
 Having laid out the general political party and political tendency distribution, now I will analyze the specific voting behavior of these different political parties and political tendencies. Figure 7 and 8 show the frequency distribution in the regulatory and substantive phase of votes casted in favor by members of different political parties. 
 
-Figure 7 shows the frequency distribution by political party regarding the in favor votes casted by the Constitutional Convention delegates in the Regulatory Phase of the Convention. Visually, the distributions are relatively similar in the sense that the average for each seem to be around the 60-70% of votes casted in favor. Not even getting into actual statistics, just visuals, I aim to show that political parties in the regulatory phase acted very similarly. Despite ideological differences, their voting patterns show there was not much internal divergences within political parties nor substantial differences relative to other parties. When drafting the bylaws, political parties according to their voting behavior, acted similarly internally and compared to each other. 
+Figure 5 shows the frequency distribution by political party regarding the in favor votes casted by the Constitutional Convention delegates in the Regulatory Phase of the Convention. Visually, the distributions are relatively similar in the sense that the average for each seem to be around the 60-70% of votes casted in favor. Not even getting into actual statistics, just visuals, I aim to show that political parties in the regulatory phase acted very similarly. Despite ideological differences, their voting patterns show there was not much internal divergences within political parties nor substantial differences relative to other parties. When drafting the bylaws, political parties according to their voting behavior, acted similarly internally and compared to each other. 
 
-```{r figure-7, opts.label = "figure7", echo=FALSE}
+```{r figure-5, opts.label = "figure5", echo=FALSE, fig.cap= "Frequency Distribution (by Political Party) of Votes In Favor Casted in the Regulatory Phase"}
 CCRollCallVotesRegDelegateVotes <- read_excel("CCRollCallVotesRegDelegateVotes.xlsx")
 
-#FIGURE 7
+#FIGURE 5
 #Plot showing the percentage of votes casted, polparty by frequency 
 CCRollCallVotesRegDelegateVotes %>%
   group_by(polparty_gen, percentage_votesinfavor) %>%
   ggplot(aes(x=polparty_gen, y=percentage_votesinfavor, fill= polparty_gen, color= polparty_gen)) + geom_count() +
-  ggtitle("Frequency Distribution (by Political Party) of Votes In Favor Casted in the Regulatory Phase") +
   theme(plot.title = element_text(face = "bold")) + 
   labs(y = "Percentage Votes Casted In Favor", x = "Political Party") +
   scale_y_continuous(limits = c(30,80))+
   theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1)) 
 ```
 
-But Figure 8, in contrast, shows a completely different voting pattern and behavior. During the substantive phase, when the votes determined what kind of content, policies and norms went into the Constitutional Draft, parties began establishing very distinct behavior to each other. Independents have the biggest widespread voting frequency, meaning Independent members voted differently to each other. It makes sense that they did not demonstrate party unity as they were not an established party, they were Independents. On the other hand, there is radical contrast between the party unity of Independents and the party unity of established parties. Other than that, the Chilean Socialist Party was the other political grouping that did not display much party unity.
+But Figure 6, in contrast, shows a completely different voting pattern and behavior. During the substantive phase, when the votes determined what kind of content, policies and norms went into the Constitutional Draft, parties began establishing very distinct behavior to each other. Independents have the biggest widespread voting frequency, meaning Independent members voted differently to each other. It makes sense that they did not demonstrate party unity as they were not an established party, they were Independents. On the other hand, there is radical contrast between the party unity of Independents and the party unity of established parties. Other than that, the Chilean Socialist Party was the other political grouping that did not display much party unity.
 
-```{r figure-8,opts.label = "figure8", echo=FALSE}
+```{r figure-6,opts.label = "figure6", echo=FALSE, fig.cap="Frequency Distribution (by Political Party) of Votes In Favor Casted in the Substantive Phase"}
 CCRollCallVotesSubsDelegateVotes <- read_excel("CCRollCallVotesSubsDelegateVotes.xlsx")
 #FIGURE 10 
 #Plot showing the percentage of votes casted in the Substantive Phase, polparty by frequency 
@@ -205,51 +199,48 @@ CCRollCallVotesSubsDelegateVotes %>%
   group_by(polparty_gen, percentage_infavor) %>%
   ggplot(aes(x=polparty_gen, y=percentage_infavor, fill= polparty_gen, color= polparty_gen)) + geom_count() +
   labs(y = "Percentage of Votes Casted In Favor", x = "Political Party") +
-  ggtitle("Frequency Distribution (by Political Party) of Votes In Favor Casted in the Substantive Phase") +
   theme(plot.title = element_text(face = "bold")) + 
   scale_y_continuous(limits = c(20,80))+
   theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))
 ```
 
-Figure 9 and 11 show the frequency distribution in the regulatory and substantive phase of votes casted in favor by members of different political tendencies. Boiling down groupings by political trends allows for a more digestible interpretation for those who aren't familiar with the Chilean political landscape and spectrum. While it is a simplification and that can be a limitation, it is a useful way to process the information. Figure 9 shows that there was not much tendency unity during the regulatory phase for the debate for the Opposition coalition and the Indigenous peoples' groups. But that there was tendency unity for Independents and the Government coalition. While the Government coalition does have outliers in both extremes, delegates that voted in favor of a lot of norms and delegates that voted against a lot of norms, it still displays unity within the political trend. 
+Figure 7 and 8 show the frequency distribution in the regulatory and substantive phase of votes casted in favor by members of different political tendencies. Boiling down groupings by political trends allows for a more digestible interpretation for those who aren't familiar with the Chilean political landscape and spectrum. While it is a simplification and that can be a limitation, it is a useful way to process the information. Figure 7 shows that there was not much tendency unity during the regulatory phase for the debate for the Opposition coalition and the Indigenous peoples' groups. But that there was tendency unity for Independents and the Government coalition. While the Government coalition does have outliers in both extremes, delegates that voted in favor of a lot of norms and delegates that voted against a lot of norms, it still displays unity within the political trend. 
  
 
-```{r figure-9, opts.label = "figure9", echo=FALSE}
+```{r figure-7, opts.label = "figure7", echo=FALSE, fig.cap= "Frequency Distribution (by Political Trend) of Votes In Favor Casted in the Regulatory Phase"}
 CCRollCallVotesRegDelegateVotes <- read_excel("CCRollCallVotesRegDelegateVotes.xlsx")
 
-#FIGURE 9
+#FIGURE 7
 #Plot showing the percentage of votes casted, political trend by frequency 
 CCRollCallVotesRegDelegateVotes %>%
   group_by(tendency, percentage_votesinfavor) %>%
   ggplot(aes(x=tendency, y=percentage_votesinfavor, fill= tendency, color= tendency)) + geom_count() +
-  ggtitle("Frequency Distribution (by Political Trend) of Votes In Favor Casted in the Regulatory Phase") +
   theme(plot.title = element_text(face = "bold")) + 
   labs(y = "Percentage Votes Casted In Favor", x = "Political Party") +
   scale_y_continuous(limits = c(40,80))+
   theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))
 ```
-Table 10 and Figure 11 show the frequency, distribution and deviation in the Substantive phase by political tendency. Table 10 numerically shows via the calculation of standard deviations what is visually displayed in Figure 11. Table 10 and Figure 11 show that the Independents had the biggest deviation; which is unsurprising given their whole point was not to behave like a political party. But surprisingly (or not), the second largest deviation is the Government's party coalition. The Chilean center to left parties very publicly became ideologically fragmented, but this data confirms it numerically and contained in this constitution-making body. The opposition coalition, the center to right wing parties displayed a decreased standard deviation by around 35%, showing that they remained relatively united throughout the Substantive phase according to their voting behavior. But the political tendency with the smallest standard deviation and the narrowest frequency distribution is the Indigenous peoples' groups. Their voting patterns remained relatively consistent within that political trend. But also a potential confounder variable could be that their standard deviation is lower because they are also the smallest group with only 17 members. Nonetheless, these voting behaviors show that in the Convention, Independents and the Government coalition lacked unity within their political tendency, while the Opposition coalition displayed more unity but the most united political tendency were the Indigenous peoples' groups. 
+Table 3 and Figure 8 show the frequency, distribution and deviation in the Substantive phase by political tendency. Table 10 numerically shows via the calculation of standard deviations what is visually displayed in Figure 11. Table 10 and Figure 11 show that the Independents had the biggest deviation; which is unsurprising given their whole point was not to behave like a political party. But surprisingly (or not), the second largest deviation is the Government's party coalition. The Chilean center to left parties very publicly became ideologically fragmented, but this data confirms it numerically and contained in this constitution-making body. The opposition coalition, the center to right wing parties displayed a decreased standard deviation by around 35%, showing that they remained relatively united throughout the Substantive phase according to their voting behavior. But the political tendency with the smallest standard deviation and the narrowest frequency distribution is the Indigenous peoples' groups. Their voting patterns remained relatively consistent within that political trend. But also a potential confounder variable could be that their standard deviation is lower because they are also the smallest group with only 17 members. Nonetheless, these voting behaviors show that in the Convention, Independents and the Government coalition lacked unity within their political tendency, while the Opposition coalition displayed more unity but the most united political tendency were the Indigenous peoples' groups. 
 
-```{r figure-10, opts.label = "figure10", echo=FALSE}
+```{r table-3, opts.label = "figure10", echo=FALSE}
 #STANDARD DEVIATION BY TENDENCY 
 sdpoltend <- CCRollCallVotesSubsDelegateVotes%>%
   group_by(tendency) %>%
   summarise_at(vars(percentage_infavor), list(name=sd))
 
 #Table SD by tendency in knitr format 
-knitr::kable(head(sdpoltend[, 1:2]), "pipe", col.names = c("Political Tendency","Standard Deviation"), align = "c", digits = 2)
+knitr::kable(head(sdpoltend[, 1:2]), "pipe", col.names = c("Political Tendency","Standard Deviation"), align = "c", digits = 2, caption = "Table showing the standard deviation by political tendency in the Substantive phase of the votes. Independientes = Independents, Oposicion = Opposition coalition, Oficialismo= Government coalition, Pueblos Originarios = Indigenous peoples' groups")
 
 ```
 
-```{r figure-11, opts.label = "figure11", echo=FALSE}
+```{r figure-8, opts.label = "figure8", echo=FALSE, fig.cap= "Frequency Distribution (by Political Tendency) of Votes In Favor Casted in the Substantive Phase"}
 CCRollCallVotesSubsDelegateVotes <- read_excel("CCRollCallVotesSubsDelegateVotes.xlsx")
 
-#FIGURE 13
+#FIGURE 8
 #Plot showing the percentage of votes casted in the Substantive Phase, poltend by frequency 
 CCRollCallVotesSubsDelegateVotes %>%
   group_by(tendency, percentage_infavor) %>%
   ggplot(aes(x=tendency, y=percentage_infavor, fill= tendency, color= tendency)) + geom_count() +
-   ggtitle("Frequency Distribution (by Political Tendency) of Votes In Favor Casted in the Substantive Phase") +
   theme(plot.title = element_text(face = "bold")) + 
   labs(y = "Percentage of Votes Casted In Favor", x = "Political Tendency") +
   scale_y_continuous(limits = c(20,80))+
