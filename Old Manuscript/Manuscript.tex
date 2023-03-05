@@ -1,0 +1,301 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+  man]{apa6}
+\usepackage{amsmath,amssymb}
+\usepackage{lmodern}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+% Make \paragraph and \subparagraph free-standing
+\ifx\paragraph\undefined\else
+  \let\oldparagraph\paragraph
+  \renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+  \let\oldsubparagraph\subparagraph
+  \renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+\newlength{\cslhangindent}
+\setlength{\cslhangindent}{1.5em}
+\newlength{\csllabelwidth}
+\setlength{\csllabelwidth}{3em}
+\newlength{\cslentryspacingunit} % times entry-spacing
+\setlength{\cslentryspacingunit}{\parskip}
+\newenvironment{CSLReferences}[2] % #1 hanging-ident, #2 entry spacing
+ {% don't indent paragraphs
+  \setlength{\parindent}{0pt}
+  % turn on hanging indent if param 1 is 1
+  \ifodd #1
+  \let\oldpar\par
+  \def\par{\hangindent=\cslhangindent\oldpar}
+  \fi
+  % set entry spacing
+  \setlength{\parskip}{#2\cslentryspacingunit}
+ }%
+ {}
+\usepackage{calc}
+\newcommand{\CSLBlock}[1]{#1\hfill\break}
+\newcommand{\CSLLeftMargin}[1]{\parbox[t]{\csllabelwidth}{#1}}
+\newcommand{\CSLRightInline}[1]{\parbox[t]{\linewidth - \csllabelwidth}{#1}\break}
+\newcommand{\CSLIndent}[1]{\hspace{\cslhangindent}#1}
+\ifLuaTeX
+\usepackage[bidi=basic]{babel}
+\else
+\usepackage[bidi=default]{babel}
+\fi
+\babelprovide[main,import]{english}
+% get rid of language-specific shorthands (see #6817):
+\let\LanguageShortHands\languageshorthands
+\def\languageshorthands#1{}
+% Manuscript styling
+\usepackage{upgreek}
+\captionsetup{font=singlespacing,justification=justified}
+
+% Table formatting
+\usepackage{longtable}
+\usepackage{lscape}
+% \usepackage[counterclockwise]{rotating}   % Landscape page setup for large tables
+\usepackage{multirow}		% Table styling
+\usepackage{tabularx}		% Control Column width
+\usepackage[flushleft]{threeparttable}	% Allows for three part tables with a specified notes section
+\usepackage{threeparttablex}            % Lets threeparttable work with longtable
+
+% Create new environments so endfloat can handle them
+% \newenvironment{ltable}
+%   {\begin{landscape}\centering\begin{threeparttable}}
+%   {\end{threeparttable}\end{landscape}}
+\newenvironment{lltable}{\begin{landscape}\centering\begin{ThreePartTable}}{\end{ThreePartTable}\end{landscape}}
+
+% Enables adjusting longtable caption width to table width
+% Solution found at http://golatex.de/longtable-mit-caption-so-breit-wie-die-tabelle-t15767.html
+\makeatletter
+\newcommand\LastLTentrywidth{1em}
+\newlength\longtablewidth
+\setlength{\longtablewidth}{1in}
+\newcommand{\getlongtablewidth}{\begingroup \ifcsname LT@\roman{LT@tables}\endcsname \global\longtablewidth=0pt \renewcommand{\LT@entry}[2]{\global\advance\longtablewidth by ##2\relax\gdef\LastLTentrywidth{##2}}\@nameuse{LT@\roman{LT@tables}} \fi \endgroup}
+
+% \setlength{\parindent}{0.5in}
+% \setlength{\parskip}{0pt plus 0pt minus 0pt}
+
+% Overwrite redefinition of paragraph and subparagraph by the default LaTeX template
+% See https://github.com/crsh/papaja/issues/292
+\makeatletter
+\renewcommand{\paragraph}{\@startsection{paragraph}{4}{\parindent}%
+  {0\baselineskip \@plus 0.2ex \@minus 0.2ex}%
+  {-1em}%
+  {\normalfont\normalsize\bfseries\itshape\typesectitle}}
+
+\renewcommand{\subparagraph}[1]{\@startsection{subparagraph}{5}{1em}%
+  {0\baselineskip \@plus 0.2ex \@minus 0.2ex}%
+  {-\z@\relax}%
+  {\normalfont\normalsize\itshape\hspace{\parindent}{#1}\textit{\addperi}}{\relax}}
+\makeatother
+
+% \usepackage{etoolbox}
+\makeatletter
+\patchcmd{\HyOrg@maketitle}
+  {\section{\normalfont\normalsize\abstractname}}
+  {\section*{\normalfont\normalsize\abstractname}}
+  {}{\typeout{Failed to patch abstract.}}
+\patchcmd{\HyOrg@maketitle}
+  {\section{\protect\normalfont{\@title}}}
+  {\section*{\protect\normalfont{\@title}}}
+  {}{\typeout{Failed to patch title.}}
+\makeatother
+
+\usepackage{xpatch}
+\makeatletter
+\xapptocmd\appendix
+  {\xapptocmd\section
+    {\addcontentsline{toc}{section}{\appendixname\ifoneappendix\else~\theappendix\fi\\: #1}}
+    {}{\InnerPatchFailed}%
+  }
+{}{\PatchFailed}
+\keywords{keywords\newline\indent Word count: X}
+\DeclareDelayedFloatFlavor{ThreePartTable}{table}
+\DeclareDelayedFloatFlavor{lltable}{table}
+\DeclareDelayedFloatFlavor*{longtable}{table}
+\makeatletter
+\renewcommand{\efloat@iwrite}[1]{\immediate\expandafter\protected@write\csname efloat@post#1\endcsname{}}
+\makeatother
+\usepackage{lineno}
+
+\linenumbers
+\usepackage{csquotes}
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same} % disable monospaced font for URLs
+\hypersetup{
+  pdftitle={The Procedural Flaws of the Chilean Constitutional Process (2019-2022)},
+  pdfauthor={María Isabel Álvarez1},
+  pdflang={en-EN},
+  pdfkeywords={keywords},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\title{The Procedural Flaws of the Chilean Constitutional Process (2019-2022)}
+\author{María Isabel Álvarez\textsuperscript{1}}
+\date{}
+
+
+\shorttitle{CHDV 30550 Manuscript}
+
+\authornote{
+
+Add complete departmental affiliations for each author here. Each new line herein must be indented, like this line.
+
+Enter author note here.
+
+The authors made the following contributions. María Isabel Álvarez: Conceptualization, Writing - Review \& Editing.
+
+Correspondence concerning this article should be addressed to María Isabel Álvarez, Postal address. E-mail: \href{mailto:isabelalvarez@uchicago.edu}{\nolinkurl{isabelalvarez@uchicago.edu}}
+
+}
+
+\affiliation{\vspace{0.5cm}\textsuperscript{1} The University of Chicago}
+
+\abstract{%
+One or two sentences providing a \textbf{basic introduction} to the field, comprehensible to a scientist in any discipline.
+Two to three sentences of \textbf{more detailed background}, comprehensible to scientists in related disciplines.
+One sentence clearly stating the \textbf{general problem} being addressed by this particular study.
+One sentence summarizing the main result (with the words ``\textbf{here we show}'' or their equivalent).
+Two or three sentences explaining what the \textbf{main result} reveals in direct comparison to what was thought to be the case previously, or how the main result adds to previous knowledge.
+One or two sentences to put the results into a more \textbf{general context}.
+Two or three sentences to provide a \textbf{broader perspective}, readily comprehensible to a scientist in any discipline.
+}
+
+
+
+\begin{document}
+\maketitle
+
+\hypertarget{introduction}{%
+\section{Introduction}\label{introduction}}
+
+The topic that I will be addressing in my BA/MA thesis is the failure of the 2019-2022 Chilean Constitutional Process. The project to rewrite a constitution to replace the Constitution ratified in 1980 during General Augusto Pinochet's military dictatorship (and amended substantively in 2005 by former-President Ricardo Lagos) had massive initial popular support after the 2019 Chilean Estallido Social (Social Outbreak) protests. To be precise, the referendum that formally began the process of Chile's constitution-making had 78.28\% of approval (with a 50.95\% of voter participation) and a Constitutional Convention was chosen as the preferred organ to redraft the constitution with 79\% approval. Two years later, a referendum was held to reject or ratify the Constitutional Proposal draft; and the results were loud and clear: the Proposal was rejected by 61.89\% of the votes, and this election broke a record of voter participation in Chile with an 85.86\% of participation. In other words, Chileans expressed ``we want a new Constitution, but certainly not this one''. And how come? What went wrong for this project to have such a fall from grace? Politicians, academics, and civil society have put out there their own arguments and diagnoses on the causes for the failure of the Constitutional Process. And this thesis project aims to research one of the wildly overlooked causes of failure: the procedural components of the Process.
+The research questions I am posing for this thesis project are: To what extent can the procedural framework of the Constitutional Convention be considered one of the main causes for the failure of the Constitutional Process? What features of the procedural and regulatory architecture in the Chilean Constitutional Process hindered collective wisdom and rational decision-making? What are the implications of not achieving democratic rationality in a Constitutional Process? But considering the narrower framework of this report, I will be focusing on the (externally impose) procedural mechanisms that aimed to broaden the inclusivity of the Constitutional Convention. I will analyze, given these procedures, whether cognitive diversity (a fundamental condition for democratic reason) was achieved within the Constitutional Convention or not. And after determining if it was achieved or not, what are the implications of cognitive diversity having been (or not) achieved in the Constitutional Convention? What are the implications for party dynamics?
+
+\hypertarget{the-argument-and-relevance-to-the-data}{%
+\section{The Argument and Relevance to the Data}\label{the-argument-and-relevance-to-the-data}}
+
+The Chilean Constitutional Convention was bound by a wide array of procedures which were developed in different stages of the Constitutional Process. Some of these procedures were developed endogenously, meaning certain procedures were drafted and adopted, by and for the Constitutional Convention itself. But some of these procedures were developed exogenously, as institutions and bodies external to the Constitutional Convention drafted and imposed mechanisms to constrain the Convention before the Convention convened for the first time.\\
+The argument I pose is that the Chilean Constitutional Process failed greatly due to the exogenously imposed and endogenously adopted procedures that the Constitutional Convention was bound by. The Constitutional Convention (CC), the body charged with the drafting of the Constitutional Draft Proposal made up of elected members, was bound by four sets of procedural norms-- three externally developed and one internally developed. The three External Norms are 1) The Accord for Social Peace and the New Constitution (mid-November 2019) signed by representatives of almost all political parties in Chile; 2) the Technical Committee's proposal (developed in late November- early December 2019), designed by 14 constitutional/ political experts; 3) The amendments made to the proposal carried out by the Chilean Congress (2020). And the Internal Norms are the bylaws in the Constitutional Convention's Regulatory Handbook (2021), which the Convention developed and voted on.
+And I will argue that the Constitutional Convention failed due to its externally and internally designed procedural architecture insofar as both hindered the achievement of democratic reason in the Convention's decision-making processes. This argument will evaluate the impact of procedural features on the decision-making processes and dynamics of the Constitutional Convention from a political epistemology perspective. My central hypothesis is that the procedural frameworks-- both, those imposed on by a body external to the Convention and those internally adopted by the Convention-- severely hindered the Constitutional Process as a whole and can be considered a determinant cause for its failure.
+This report will particularly support the argument that despite external procedures aimed to broaden inclusivity (and succeeded) within the Constitutional Convention, the Process failed-- which goes counter to the arguments posed by the literature on democratic reason. Cognitive diversity is a fundamental requirement for the achievement of democratic reason-- and it was present in the Constitutional Convention. It was present given externally imposed procedural norms that the Congress passed, which aimed to broaden the inclusivity of the Convention. The three main features (and mechanisms the Congress imposed) that allowed for greater inclusivity were: gender parity for the candidates and members of the Convention, proportional Indigenous peoples' quotas, and the facilitated participation of Independent candidates (persons not formally affiliated with an established political party). This report will consider the impact of externally-imposed procedures (gender parity, Indigenous peoples' quotas, the participation of Independents) on three categories of analysis, 1) cognitive diversity, and 2) party unity within the Constitutional Convention.
+
+\hypertarget{presentation-of-the-data}{%
+\section{Presentation of the Data}\label{presentation-of-the-data}}
+
+This scientific report will consider a specific part of this argument, which is how the procedures affected the dynamics of the Constitutional Convention. The data considered in the scope of this report only considers the Constitutional Convention-- its makeup and its dynamics.
+The first dataset is qualitative as it contains the Constitutional Convention delegate information. Here, there is information about each delegate's demographic background, their election in the convention, their political affiliation and their educational and professional careers. This qualitative dataset will be used to analyze cognitive diversity.
+The second and third datasets contain all of the roll call votes casted in the Constitutional Convention (divided by phase-- Regulatory and Substantive). The second dataset is quantitative as it contains the votes casted in the Regulatory Phase by the Constitutional Convention delegates. The regulatory phase is composed of 1009 roll call votes in which the Constitutional Convention delegates produced their own regulatory handbook or bylaws. The main kinds of analysis that will be considered for this dataset will be separated into two categories, by issue and by delegate. By issues, general analysis with plots will be conducted to see how many issues were approved (by the 2/3 quorum) or rejected and by how much-- this will also be correlated by political party and political tendency to observe what were the dynamics like regarding consensus. With plots I will be able to see if there were issues only delegates in the government, opposition, independent, indigenous people's quotas were in favor of and how these 2/3 approval quorums were achieved in each issue. By delegates, general analysis with plots will be conducted to evaluate by political party and tendency how many issues were approved by delegate.
+The third dataset is quantitative, too, as it contains the votes casted in the Substantive Phase by the Constitutional Convention delegates. And the substantive phase is composed of 3508 roll call votes in which the Constitutional Convention delegates determined the content of the Constitutional Proposal Draft. The supplementary analysis considered for this dataset will be identical to the one carried out in the regulatory phase.
+
+\hypertarget{cognitive-diversity}{%
+\section{Cognitive Diversity}\label{cognitive-diversity}}
+
+Landemore (2013) builds a case for the epistemic value and virtue of inclusive deliberative democracy that is based on the cognitive diversity of the group engaged with collective decision-making. Democratic reason, the collective distributed intelligence of the people, can be achieved through certain mechanisms which are political cognitive artifacts. One of the mechanisms of democratic reason is deliberation. The epistemic properties or values of deliberation come from enlarging the pool of ideas as well as of information; weeding out the good arguments from the bad arguments; by promoting the arrival at consensus on the better decision. The second mechanism of democratic reason is majority rule. While majority rule is meant to complement and supplement deliberation, it has its own epistemic properties.
+But this section is going to be focused on the concept of cognitive diversity, which refers to the ``the variety of mental tools that human beings use to solve problems or make decisions in the world'' (Landemore, 89)-- in other words, a mental toolkit that is the product of a unique living experience. Cognitive diversity is the condition of optimal deliberation, according to Landemore-- meaning it is foundational to the concept of democratic reason and its mechanisms of inclusive deliberation and majority rule. This condition dictates that cognitive diversity matters more than individual epistemic competence. The condition of optimal deliberation dictates that cognitive diversity matters more than individual epistemic competence. Cognitive diversity brings with it collective wisdom or in this particular case, democratic reason.
+And this section will analyze if that particular argument is supported or not. Was the Constitutional Convention a decision-making body with cognitive diversity? As aforementioned, several procedures that were externally imposed by the Chilean Congress were designed specifically to broaden the inclusivity of the Convention (gender parity, indigenous peoples' quotas and the participation of Independents). These were celebrated measures and the measures that made the Chilean Constitutional Process so unique-- there has been no constitution-making organ that has drafted a constitution under these conditions. But how did broad inclusivity impact the Constitutional Process in regards to facilitating cognitive diversity?
+
+\hypertarget{data-analysis-with-delegate-information-dataset}{%
+\subsection{Data Analysis with Delegate Information Dataset}\label{data-analysis-with-delegate-information-dataset}}
+
+Cognitive diversity ``refers to a diversity of ways of seeing the world, interpreting problems in it and working out solutions to these problems'' and ``denotes more specifically a diversity of perspectives (ways of representing situations and problems), diversity of interpretations (ways of categorizing or partitioning perspectives), diversity of heuristics (ways of generating solutions to problems) and diversity of predictive models (ways of inferring cause and effect)''. But cognitive diversity is ``conceptually distinct from both some of its causes (e.g., gender, ethnicity, or, more fundamentally, genes) and some of its symptoms (e.g.~differences in viewpoints or opinions''-- meaning cognitive diversity goes beyond broad representation of different groups but gets to a diversity in cognitive processes. In other words, ``The diversity that really matters is not primarily a diversity of opinions, values, perspectives (as end-results rather than processes), or even a diversity of social and conomic backgrounds. What matters is a more fundamental cognitive diversity defined as the internal, psychological property that determines how each individual sees the world, interprets its problems and maks predictions in it.'' The importance of cognitive diversity and the argument that Landemore, alongside Lu Hong and Scott Page make, is that the cognitive diversity in a group is more valuable than the average individual ability for a group's collective competence in decision-making-- particularly, democratic decision-making.\\
+I will argue that the data presented below does demonstrate, to a certain extent, that there was an achievement of cognitive diversity in the Constitutional Convention. Cognitive diversity is not a measurable or quantifiable concept. And while the theorists argue against equating cognitive diversity with its symptoms or causes, I will at at least minimally be able to argue that there were the optimal conditions for there to be cognitive diversity within the Constitutional Convention. An maximally I will argue that the blend of these very different Chilean experiences did result in cognitive diversity within the Convention.
+Turning to the data, Tables 1, 2 and 3, these summarize the frequency of a number of demographic variables which demonstrate diversity within the Constitutional Convention at a very basic level. These tables show the frequency of the delegate's gender, age range, and macrozone. This basic demographic information shows the distribution of the Constitutional Delegate's gender, age group and general geographical origin. The data is relevant because it shows that the Constitutional Convention, at a basic level had gender parity, representation of different age groups and generations, and complete geographical representation of Chile.
+
+But turning to figures, these show a more in-depth level of cognitive diversity through the different academic and professional backgrounds of the Constitutional Convention delegates. There was a variety of educational levels represented in the Convention, as well as professions. This shows at a basic level that the Convention was not just a group of technocrats or just a group of lawyers and politicians drafting a new Constitution. It is observable that several backgrounds with different skillsets and problem-diagnosis-and-solving abilities were represented. And this was incredibly purposeful, as I will evaluate. Figure 4 displays the variety of educational levels represented in the Convention; Figure 5 displays the variety of professions represented in the Convention.
+
+Without the procedures that the Chilean Congress designed or imposed onto the Convention, this degree of representation (and therefore cognitive diversity) would have not been achieved. Regional representation would have been achieved given the default on electoral laws; but it is highly doubtful that the electorate would have been able to elect a perfectly equal distribution of female and male identifying delegates. And most definitely, this degree of Indigenous peoples' representation would have not been possible without these explicit pieces of legislation that automatically reserved 17 seats out of the 155 seats in the Convention for ten different groups. Furthermore, the facilitated participation of Independents, arguably, is what most influenced the conditions for there to be cognitive diversity in the Convention. As Independents are people not formally affiliated with politicians, these are people who have most definitely not been formally involved in politics. The values and limitations of this are reviewed at length in my thesis project. But focusing on this report's aim, by actively involving people that do not have a political background or profession in a political process, lots of non-political backgrounds and professions were represented, backgrounds and professions that require different skill sets, perspectives and problem-solving abilities.
+
+\hypertarget{party-dynamics}{%
+\section{Party Dynamics}\label{party-dynamics}}
+
+This report will also consider the party dynamics considering one of the aforementioned procedures that aimed to broaden inclusivity: the participation of Independents. The Congress passed specific laws that first allowed the participation of Independents in the election of the Constitutional Convention delegates and then passed another law that would facilitate their inscription process. In other words, Independents were incentivized to participate. In brief, this was a reflection of the Congress appeasing to the anti-party mood in Chile after the Social Outbreak protests and the will of the people to draft a new Constitution by and for ``the people''-- which is why a Constitutional Convention was elected as the constitution-making organ instead of a Mixed Constitutional Convention in which half of the body would be made up of elected citizens and half of current parliamentarians. Chileans, by electing a Constitution Convention whose all members had to be elected citizens, cried out loud to be rid of traditional party-politics.
+Figure 6 shows the distribution of the general political parties represented and Figure 6 shows the distribution of these in the particular commissions within the Convention. I say general because most delegates ran under very small Independent lists and Indigenous peoples groups ran under their particular peoples groups (pueblos originarios). In total and in detail, technically there were 51 different lists represented among 154 delegates. But when conflating all of the Independents in one category, and the Indigenous peoples quotas into on category, we're left with 12 ``political parties''-- 10 of these are established Chilean political parties, one contains all delegates that ran as Independents and one contains all the different Indigenous delegates representing their peoples. As Figure 7 shows, Independents overwhelmingly hold the concentrated majority. A total of 87 of the 154 delegates ran through Independent lists, and the second largest concentration are the 17 Indigenous peoples' reserved seats. After that, three established political parties were tied at 10 delegates.
+
+Figure 8 shows the distribution of the different political tendencies represented. Again, I have grouped Independents into a category and Indigenous peoples into another category. This is to primarily focus on the distribution of ideologies from the traditional political paries in Chile. Oficialismo refers to the governing coalition-- considered here as current-President Gabriel Boric's coalition which encompasses center to left wing parties. And Oposición refers to the opposing coalition-- considered here as the current opposition of center to right wing parties.
+
+\hypertarget{data-analysis-with-regulatory-phase-and-substantive-phase-roll-call-data}{%
+\subsection{Data Analysis with Regulatory Phase and Substantive Phase Roll Call Data}\label{data-analysis-with-regulatory-phase-and-substantive-phase-roll-call-data}}
+
+Having laid out the general political party and political tendency distribution, now I will analyze the voting behavior of these different political parties and political tendencies.
+Figure 9 and 10 show the frequency distribution in the regulatory and substantive phase of votes casted in favor by members of different political parties.
+
+Figure 11 and 12 show the frequency distribution in the regulatory and substantive phase of votes casted in favor by members of different political tendencies.
+
+\hypertarget{conclusion}{%
+\section{Conclusion}\label{conclusion}}
+
+\begin{verbatim}
+Thus, this report has evaluated the impact of some externally imposed procedures that aimed to broaden the Constitutional Convention’s inclusivity on the Convention’s internal dynamics focusing on cognitive diversity, party unity and political preferences. Inclusivity and representation are rightfully celebrated in democratic processes. Theorists like Landemore, Ho and Page show how inclusivity and representation can be conducive to cognitive diversity in a democratic process. They argue that diversity in a decision-making group is more valuable than the average individual ability for a group’s collective competence particularly in democratic processes. But the Chilean Constitutional Process seems to be an outlier. While there were high degrees of representation due to procedural mechanisms that aimed to purposefully design an inclusive constitution-making organ, and while there seemed to be cognitive diversity, these features counterintuitively hindered democratic reason. They counterintuitively hindered democratic reason because they were not conducive to consensus even after thorough rounds of deliberation and majoritarian votes. 
+\end{verbatim}
+
+We used R (Version 4.2.2; R Core Team, 2022) and the R-packages \emph{papaja} (Version 0.1.1; Aust \& Barth, 2022), and \emph{tinylabels} (Version 0.2.3; Barth, 2022) for all our analyses.
+
+\hypertarget{references}{%
+\section{References}\label{references}}
+
+\hypertarget{refs}{}
+\begin{CSLReferences}{1}{0}
+\leavevmode\vadjust pre{\hypertarget{ref-R-papaja}{}}%
+Aust, F., \& Barth, M. (2022). \emph{{papaja}: {Prepare} reproducible {APA} journal articles with {R Markdown}}. Retrieved from \url{https://github.com/crsh/papaja}
+
+\leavevmode\vadjust pre{\hypertarget{ref-R-tinylabels}{}}%
+Barth, M. (2022). \emph{{tinylabels}: Lightweight variable labels}. Retrieved from \url{https://cran.r-project.org/package=tinylabels}
+
+\leavevmode\vadjust pre{\hypertarget{ref-R-base}{}}%
+R Core Team. (2022). \emph{R: A language and environment for statistical computing}. Vienna, Austria: R Foundation for Statistical Computing. Retrieved from \url{https://www.R-project.org/}
+
+\end{CSLReferences}
+
+
+\end{document}

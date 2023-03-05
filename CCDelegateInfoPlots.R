@@ -20,12 +20,6 @@ devtools::install_github("lbusett/insert_table")
 #Frequency Table showing gender parity in the Constitutional Convention 
 tab1(ConstitutionalConventionDelegateInfo$Gender, sort.group = "decreasing", cum.percent = TRUE)
 
-
-genderage <-  table(ConstitutionalConventionDelegateInfo$Gender, 
-                    ConstitutionalConventionDelegateInfo$`Age Range`)
-
-knitr::kable(head(genderage[, 1:5]), "pipe")
-
 #TABLE 2#
 #Frequency Table showing age range distribution in the Constitutional Convention 
 tab1(ConstitutionalConventionDelegateInfo$`Age Range`, sort.group = "decreasing", cum.percent = TRUE)

@@ -5,7 +5,7 @@
 
 #Read In Data Set
 library(readxl)
-CCRollCallVotesRegDelegateVotes <- read_excel("CCRollCallVotesRegDelegateVotes.xlsx")
+CCRollCallVotesRegDelegateVotes <- read_excel("Documents/GitHub/ChileanCCRollCallVotes/Regulatory Phase/CCRollCallVotesRegDelegateVotes.xlsx")
 View(CCRollCallVotesRegDelegateVotes)
 
 #PLOT FOR MANUSCRIPT#
@@ -23,25 +23,11 @@ CCRollCallVotesRegDelegateVotes %>%
 #Plot showing the percentage of votes casted, political trend by frequency 
 CCRollCallVotesRegDelegateVotes %>%
   group_by(tendency, percentage_votesinfavor) %>%
-  ggplot(aes(x=tendency, y=percentage_votesinfavor, fill= tendency, color= tendency)) + geom_count() +
+  ggplot(aes(x=tendency, y=percentage_votesinfavor, fill= tendency, color= polparty_gen)) + geom_count() +
   labs(y = "Percentage Votes Casted In Favor", x = "Political Party") +
   scale_y_continuous(limits = c(0,100))+
   theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1)) 
 
-
-
-
-
-#improving plots 
-#Plot showing the percentage of votes casted, political trend by frequency 
-CCRollCallVotesRegDelegateVotes %>%
-  group_by(tendency, percentage_votesinfavor) %>%
-  ggplot(aes(x=tendency, y=percentage_votesinfavor, fill= tendency, color= tendency)) + 
-  geom_count()+
-  scale_size_area(max_size = 3)+
-  labs(y = "Percentage Votes Casted In Favor", x = "Political Party") +
-  scale_y_continuous(limits = c(25,90))+
-  theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1)) 
 
 #OTHER PLOTS#
 
