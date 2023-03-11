@@ -89,6 +89,11 @@ gendermacrozone <-  table(ConstitutionalConventionDelegateInfo$Gender,
 
 knitr::kable(head(gendermacrozone[, 1:6]), "pipe", caption = "Table showing the macrozone distribution in the Convention by gender. Austral= Austral Zone, Centro= Cental Zone (excluding the Metropolitan zone), Centro Sur= Central Southern Zone, Metropolitana= Metropolitan Zone (Santiago, the Chilean Capital, Norte Grande= Northern Zone, Sur= Southern Zone)")
 
+## ND: If you want to include the translation keys here in a note below the table instead of in the caption, you can use the kableExtra package to add it as a footnote. An example of what that could look like (with a lot of optional arguments):
+ # kable(dt, format = "latex", booktabs = T) %>%
+ #   kable_styling() %>%
+ #   add_footnote("Footnote 1", notation="alphabet")
+
 ```
 These tables show the frequency of the delegate’s gender, age range, and macro-zone. This basic demographic information shows the distribution of the Constitutional Delegate’s gender, age group and general geographical origin. The data is relevant because it shows that the Constitutional Convention, at a basic level had gender parity, representation of different age groups and generations, and complete geographical representation of Chile. Table 1 shows the relationship between age range and gender within the convention. Gender was equally represented in the Convention (77 members were male-identifying and 77 members were female-identifying) and all in all, there was vast generational representation. But the age group with the broadest representation was 30 to 39 years old, and the age group with the narrowest representation was 20 to 29. Furthermore, Table 2 shows the macro-zone representation. Chile has 16 regions that extend over the longest country in the world , but its government and its institutions are highly centralized. Which is why macro-zone representation is important to be included in its conception of diversity. While the most represented area is its Metropolitan Region (the capital, Santiago) with `r gendermacrozone [7]` women and `r gendermacrozone [8]` men, each macro-zone (except the Austral) has around 20 representatives. 
 
@@ -110,6 +115,11 @@ ConstitutionalConventionDelegateInfo %>%
   theme(axis.text.x = element_text(angle = 60, hjust=1)) +
   geom_text(aes(label = after_stat(count)), stat = "count", vjust = 1.5, colour = "white")
 
+# ND: A few suggestions for this plot: 
+# 1. Since the x-axis and the fill are redundant (dividing the data by the same variable), you don't need text for both. I'd suggest removing the legend for fill. ie, the different colors are visually helpful (so keep them!) but interpreting them is not required for interpreting the figure (so lose the legend).
+# 2. In the pdf the font is very small and hard to read. You can tweak this with a combination of specifying font size in the theme() layer and specifying width/height of the full image in the chunk options (or in ggsave).
+# 3. I *love* adding geom_text or geom_label layers to bar plots! Here though you can't see most of the numerals because they're under the x-axis labels. If you make vjust negative you can float them above the bars (and change the color to black or something contrasting so they're visible against the background).
+
 ```
 
 Figure \@ref(fig:figure-2) displays the variety of professions represented in the Convention. And this professional diversity yields very similar inputs as educational diversity. And I argue that this information truly is the key to unlocking the argument that there was cognitive diversity in the Convention given the vast array of cognitive processes represented in the constitution-making body. 
@@ -127,6 +137,8 @@ ConstitutionalConventionDelegateInfo %>%
   labs(y = "Frequency", x = "Profession") +
   theme(axis.text.x = element_text(angle = 60, hjust=1)) +
   geom_text(aes(label = after_stat(count)), stat = "count", vjust = 1.5, colour = "white")
+
+## ND: ditto above about removing the legend! fill color and x-axis are redundant, so you only need to include a legend/labels for one! also ditto for font size
 ```
 
 
@@ -135,7 +147,7 @@ Without the procedures that the Chilean Congress designed or imposed onto the Co
 # Party Dynamics 
 This section considers the impact of the externally imposed procedure of the participation of Independents on another variable, party dynamics. The Chilean Congress passed specific laws that first allowed the participation of Independents in the election of the Constitutional Convention [@ley21216] delegates and then passed another law that would facilitate their inscription process[@ley21296]. In other words, Independents were incentivized to participate. In brief, this was a reflection of the Congress appeasing to the anti-party mood in Chile after the Social Outbreak protests and the will of the people to draft a new Constitution by and for “the people”– which is why a Constitutional Convention was elected as the constitution-making organ instead of a Mixed Constitutional Convention in which half of the body would be made up of elected citizens and half of current parliamentarians. Chileans, by electing with an overwhelming electoral majority a Constitution Convention whose all members had to be elected citizens, demanded to be rid of traditional party-politics for this process [@servel2020]. 
 
-Figure \@ref(fig:figure-3) shows the distribution of the general political parties represented. I specify that this is the general political party distribution because  most delegates ran under very small Independent lists and Indigenous peoples groups ran under their particular peoples groups (Pueblos Originarios). In total and in detail, there technically were 51 different lists/parties represented among 154 delegates. But when conflating all of the Independents in one category, and the Indigenous peoples quotas into on category, we’re left with 12 “political parties”– 10 of these are established Chilean political parties, one contains all delegates that ran as Independents and one contains all the different Indigenous delegates representing their peoples. As Figure \@ref(fig:figure-3) shows, Independents overwhelmingly hold the concentrated majority. A total of 87 of the 154 delegates ran through Independent lists, and the second largest concentration are the 17 Indigenous peoples’ reserved seats. After that, three established political parties were tied at 10 delegates.
+Figure \@ref(fig:figure-3) shows the distribution of the general political parties represented. I specify that this is the general political party distribution because  most delegates ran under very small Independent lists and Indigenous peoples groups ran under their particular peoples groups (Pueblos Originarios). In total and in detail, there technically were 51 different lists/parties represented among 154 delegates. But when conflating all of the Independents in one category, and the Indigenous peoples quotas into on category, we’re left with 12 “political parties”– 10 of these are established Chilean political parties, one contains all delegates that ran as Independents and one contains all the different Indigenous delegates representing their peoples. As Figure \@ref(fig:figure-3) shows, Independents overwhelmingly hold the concentrated majority. A total of 87 of the 154 delegates ran through Independent lists, and the second largest concentration are the 17 Indigenous peoples’ reserved seats. After that, three established political parties were tied at 10 delegates. <!-- ND: You could use inline `r code` to generate all these numeric values! -->
 
 ```{r figure-3, opts.label = "figure3", echo=FALSE, fig.cap="Distribution of Political Parties, Independents and Indigenous peoples' quotas in the Constitutional Convention"}
 ConstitutionalConventionDelegateInfo <- read_excel("ConstitutionalConventionDelegateInfo.xlsx")
@@ -149,6 +161,8 @@ ConstitutionalConventionDelegateInfo %>%
   theme(plot.title = element_text(face = "bold")) + 
   theme(axis.text.x = element_text(angle = 65, vjust = 0.9, hjust=1))+
   geom_text(aes(label = ..count..), stat = "count", vjust = 1.5, colour = "white")
+
+## ND: Ditto everything above!
 ```
 
 Figure \@ref(fig:figure-4) shows the distribution of the different political tendencies represented. Again, I have grouped Independents (not affiliated at all with a political party) into a category and Indigenous peoples into another category. This is to primarily focus on the distribution of ideologies from the traditional political parties in Chile. Oficialismo refers to the governing coalition– considered here as current-President Gabriel Boric’s coalition which encompasses center to left wing parties. And Oposicion refers to the opposing coalition– considered here as the current opposition of center to right wing parties. One of the central procedures that my thesis project focuses on is the 2/3 super-majority voting quorum needed to pass any norm in the substantive phase of the Process (substantive meaning that what passed, made it onto the Constitutional Draft). And this is because given that the opposition (center to right wing parties) were not able to achieve a third of the seats in the Constitutional Convention, the Chilean right was left with no bargaining power in agreements as they didn't have an informal "veto" power or the numbers to block motions [@interferencia1]. As a result, I argue, an entire sector of the Chilean political spectrum was ignored in negotiations; they did not have to be taken seriously because they did not have the numbers to be meaningfully included in negotiations. This, was counterproductive because it produced an environment of adversarial instead of consensus politics; delegates from different ideological currents saw each other as barriers and obstacles to their own goals instead of fellow collaborators, all because "what really mattered" was achieving a 2/3 super-majority [@interferencia1]. 
@@ -164,10 +178,12 @@ ConstitutionalConventionDelegateInfo %>%
    labs(y = "Frequency", x = "Political Tendency") +
   theme(plot.title = element_text(face = "bold")) + 
   geom_text(aes(label = ..count..), stat = "count", vjust = 1.5, colour = "white")
+
+# ND: Ditto above. Also, I'd suggest moving the translation key (everything you have in parentheses) from the figure caption defined in the chunk options into a caption on the ggplot (with caption = "" in the labs() layer). Then it will render in small text beneath the figure, kind of like a footnote, without messing with the markdown labeling/captioning.
 ```
 
 ## Data Analysis with Regulatory Phase and Substantive Phase Roll Call Data  
-Having laid out the general political party and political tendency distribution, now I will analyze the specific voting behavior of these different political parties and political tendencies. Figure 5 and 6 show the frequency distribution in the regulatory and substantive phase of votes casted in favor by members of different political parties. 
+Having laid out the general political party and political tendency distribution, now I will analyze the specific voting behavior of these different political parties and political tendencies. Figure 5 and 6<!--\@ref(fig:figure-5) and \@ref(fig:figure-6)--> show the frequency distribution in the regulatory and substantive phase of votes casted in favor by members of different political parties. 
 
 Figure \@ref(fig:figure-5) shows the frequency distribution by political party regarding the in favor votes casted by the Constitutional Convention delegates in the Regulatory Phase of the Convention. Visually, the distributions are relatively similar in the sense that the average for each seem to be around the 60-70% of votes casted in favor. Not even getting into actual statistics, just visuals, I aim to show that political parties in the regulatory phase acted very similarly. Despite ideological differences, their voting patterns show there was not much internal divergences within political parties nor substantial differences relative to other parties. When drafting the bylaws, political parties according to their voting behavior, acted similarly internally and compared to each other. 
 
@@ -198,9 +214,11 @@ CCRollCallVotesSubsDelegateVotes %>%
   theme(plot.title = element_text(face = "bold")) + 
   scale_y_continuous(limits = c(20,80))+
   theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))
+
+## ND: it would be cool to combine these two plots together where they are broken apart by faceting. it would look essentially the same but would be more space/text/code efficient
 ```
 
-Figure \@ref(fig:figure-7) and Figure \@ref(fig:figure-8) show the frequency distribution in the regulatory and substantive phase of votes casted in favor by members of different political tendencies. Boiling down groupings by political trends allows for a more digestible interpretation for those who aren't familiar with the Chilean political landscape and spectrum. While it is a simplification and that can be a limitation, it is a useful way to process the information. Figure 7 shows that there was not much tendency unity during the regulatory phase for the debate for the Opposition coalition and the Indigenous peoples' groups. But that there was tendency unity for Independents and the Government coalition. While the Government coalition does have outliers in both extremes, delegates that voted in favor of a lot of norms and delegates that voted against a lot of norms, it still displays unity within the political trend. 
+Figure \@ref(fig:figure-7) and Figure \@ref(fig:figure-8) show the frequency distribution in the regulatory and substantive phase of votes casted in favor by members of different political tendencies. Boiling down groupings by political trends allows for a more digestible interpretation for those who aren't familiar with the Chilean political landscape and spectrum. While it is a simplification and that can be a limitation, it is a useful way to process the information. Figure 7<!--\@ref(fig:figure-7)--> shows that there was not much tendency unity during the regulatory phase for the debate for the Opposition coalition and the Indigenous peoples' groups. But that there was tendency unity for Independents and the Government coalition. While the Government coalition does have outliers in both extremes, delegates that voted in favor of a lot of norms and delegates that voted against a lot of norms, it still displays unity within the political trend. 
  
 
 ```{r figure-7, opts.label = "figure7", echo=FALSE, fig.cap= "Frequency Distribution (by Political Tendency) of Votes In Favor Casted in the Regulatory Phase"}
@@ -229,6 +247,8 @@ sdpoltend <- CCRollCallVotesSubsDelegateVotes%>%
 #Table SD by tendency in knitr format 
 knitr::kable(head(sdpoltend[, 1:2]), "pipe", col.names = c("Political Tendency","Standard Deviation"), align = "c", digits = 2, caption = "Table showing the standard deviation by political tendency in the Substantive phase of the votes. Independientes = Independents, Oposicion = Opposition coalition, Oficialismo= Government coalition, Pueblos Originarios = Indigenous peoples' groups")
 
+## ND: see my note earlier about using kableExtra to move some of the caption text into a table footnote
+
 ```
 
 ```{r figure-8, opts.label = "figure8", echo=FALSE, fig.cap= "Frequency Distribution (by Political Tendency) of Votes In Favor Casted in the Substantive Phase"}
@@ -252,3 +272,19 @@ Thus, this report has evaluated the impact of some externally imposed procedures
 
 # References
 <div id="refs"></div>
+
+<!-- General comments:
+
+Great work, Isabel! I love how this all came together! Your work is obviously not in my area of expertise, but as an outsider I'll just say I think this is super interesting. Your thesis is going to be great! I'm sorry that papaja and tinytex were such a headache for you this quarter, but I'm glad that you were able to make use of bookdown & regular old markdown to make a clean and polished document. A few general notes:
+
+1. It's better to give your chunks informative names based on the "1 thing" they actually do (like "figure-education-bar") than something ordered (like "figure-1"). Then you can easily adjust the order of the figures -- or add/delete figures -- without adjusting chunk names. That opens the door to human error and kind of defeats the purpose of the Rmd auto-numbering the figures anyway! 
+2. Take a look at my comments in your code about adding footnote-style captions to figures and tables. It will make your document a little more streamlined.
+3. Also my comments above about simplifying figures by taking away legends for redundant grouping. Note that I'm *not* saying that you should not have bars be all different colors! I think that's really useful for human eyeballs to visually parse the plot! I'm just saying that because it's not strictly speaking necessary to interpret the figure you can skip the redundant legend that says how to interpret it.
+4. As you keep working on this, I encourage you to use inline `r code` even more liberally! You can take advantage of it both when you're describing your data and when you're reporting results.
+5. Also, a totally random and unimportant copyediting note - the standard past tense of cast is "cast" and not "casted." Just fyi. Not important.
+
+Overall, excellent job! I'm really happy with how this turned out and I hope you are too. It's been great having you in class this quarter!
+
+19/20
+
+-->
